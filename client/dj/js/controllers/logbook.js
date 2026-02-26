@@ -5,7 +5,7 @@ var logbookModule = angular.module("wizbif.logbook", [
 	"wizbif.database"
 ]);
 
-logbookModule.controller("LogbookCtrl", ["$scope", "$interval", "alert", "db", function($scope, $interval, alert, db) {
+logbookModule.controller("LogbookCtrl", ["$scope", "$rootScope", "$interval", "alert", "db", function($scope, $interval, alert, db) {
 	$scope.days = db.getDefs("days");
 	$scope.show_times = db.getDefs("show_times");
 	$scope.showID = null;
@@ -23,9 +23,11 @@ logbookModule.controller("LogbookCtrl", ["$scope", "$interval", "alert", "db", f
 
 			$scope.scheduleID = (scheduleShow || {}).scheduleID;
 			$scope.showID = $scope.scheduleID && show.showID;
+			$rootScope.showID = $scope.showID;
 			$scope.show = show;
 		}, function() {
 			$scope.show = null;
+			$rootScope.showID = null;
 		});
 	};
 

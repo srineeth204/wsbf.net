@@ -24,7 +24,7 @@ mainModule.constant("authSets", {
 	}
 });
 
-mainModule.controller("MainCtrl", ["$scope", "alert", "db", "authSets", function($scope, alert, db, authSets) {
+mainModule.controller("MainCtrl", ["$scope", "alert", "db", "authSets", function($scope, alert, db, authSets, $rootScope) {
 	$scope.positions = db.getDefs("positions");
 	$scope.user = {};
 	$scope.auth = {};
@@ -41,6 +41,13 @@ mainModule.controller("MainCtrl", ["$scope", "alert", "db", "authSets", function
 			$scope.user = null;
 		});
 	};
+
+	$scope.logout = function() {
+		if ($rootScope.showID) {
+			alert("You must sign ogg before logging out.");
+			return;
+		}
+	}
 
 	// initialize
 	getUser();
